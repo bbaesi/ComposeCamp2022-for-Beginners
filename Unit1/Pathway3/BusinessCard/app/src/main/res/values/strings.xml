@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">businessCard</string>
+    <string name="myName">Bae Si Hyeon</string>
+    <string name="myJob">Android Developer</string>
+    <string name="myPhoneNumber">+11 (123) 444 555 666</string>
+    <string name="mySNS">\@androi.dev</string>
+    <string name="myEmail">BSH@gmail.com</string>
+</resources>
