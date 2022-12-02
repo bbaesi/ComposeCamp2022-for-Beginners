@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'test.example.lemonade'
+    namespace 'com.example.lemonade'
     compileSdk 32
 
     defaultConfig {
-        applicationId "test.example.lemonade"
+        applicationId "com.example.lemonade"
         minSdk 21
         targetSdk 32
         versionCode 1
