@@ -27,9 +27,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TipTimeTheme {
-                Surface(
-                    //...
-                ) {
+                Surface()
+                {
                     TipTimeScreen()
                 }
             }
@@ -39,6 +38,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TipTimeScreen() {
+    var amountInput by remember { mutableStateOf("") } // 상태 변경 추적 및 저장
+    val amount = amountInput.toDoubleOrNull() ?: 0.0 // null 값일 경우 0.0으로 반환
+    val tip = calculateTip(amount)
     Column(
         modifier = Modifier.padding(32.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -49,7 +51,11 @@ fun TipTimeScreen() {
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(Modifier.height(16.dp))
-        EditNumberField()
+        EditNumberField(value = amountInput,
+            onValueChange = { amountInput = it }
+            // stateless 시간이 지남에 따라 변하거나 변할 가능성이 있는 것
+            // stateless 상태로 만들기 위해 다른 함수 위로 옮기는 패턴: 상태 호이스팅
+        )
         Spacer(Modifier.height(24.dp))
         Text(
             text = stringResource(R.string.tip_amount, ""),
@@ -57,19 +63,24 @@ fun TipTimeScreen() {
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
-
+        Text(
+            text = stringResource(R.string.tip_amount, tip),
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
 @Composable
-fun EditNumberField() {
-    var amountInput by remember { mutableStateOf("") } // 상태 변경 추적 및 저장
-    val amount = amountInput.toDoubleOrNull() ?: 0.0 // null 값일 경우 0.0으로 반환
-    val tip = calculateTip(amount)
+fun EditNumberField(
+    value: String,
+    onValueChange: (String) -> Unit
+) {
     TextField(
         label = { Text(stringResource(R.string.cost_of_service)) },
-        value = amountInput,
-        onValueChange = {amountInput = it},
+        value = value,
+        onValueChange = onValueChange,
         modifier = Modifier.fillMaxWidth(),
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
