@@ -147,9 +147,17 @@ private fun calculateTip(
     tipPercent: Double = 15.0,
     roundUp: Boolean
 ): String {
-    var tip = tipPercent / 100 * amount
-    if (roundUp) tip = kotlin.math.ceil(tip) // 주어진 정수값을 반올림하는 함수
-    return NumberFormat.getCurrencyInstance().format(tip)
+    var tip : Double = tipPercent / 100 * amount
+    if (roundUp) {
+        tip = kotlin.math.round(tip)
+        return NumberFormat.getCurrencyInstance(Locale.US).format(tip)
+    } // 주어진 정수값을 반올림하는 함수
+    else {
+        val num = DecimalFormat("#,###.00")
+        var result = "$" + num.format(tip)
+        if(amount.equals(0.0) || tipPercent.equals(0.0)) result = "$0.00"
+        return result
+    }
 }
 
 
