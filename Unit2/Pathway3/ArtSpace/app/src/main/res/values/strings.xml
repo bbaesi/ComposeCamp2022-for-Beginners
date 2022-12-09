@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Art Space</string>
+    <string name="content_Lemontree">Lemon tree</string>
+    <string name="content_Lemon">Lemon</string>
+    <string name="content_Glassoflemonade">Glass of lemonade</string>
+    <string name="content_Emptyglass">Empty glass</string>
+    <string name="name1">Kim A</string>
+    <string name="name2">Lee B</string>
+    <string name="name3">Bae C</string>
+    <string name="name4">Pack D</string>
+
 </resources>
