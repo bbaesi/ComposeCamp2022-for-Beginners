@@ -40,15 +40,15 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+val imageList = arrayListOf(R.drawable.lemon_tree, R.drawable.lemon_squeeze,
+    R.drawable.lemon_drink, R.drawable.lemon_restart)
+val nameList = arrayListOf(R.string.name1,R.string.name2,R.string.name3,R.string.name4)
+val titleList = arrayListOf(R.string.content_Lemontree,R.string.content_Lemon,
+    R.string.content_Glassoflemonade, R.string.content_Emptyglass)
+val yearlist = arrayListOf("(2019)", "(2020)", "(2021)", "(2022)")
+
 @Composable
 fun ArtSpaceScreen() {
-    val imageList = arrayListOf(R.drawable.lemon_tree, R.drawable.lemon_squeeze,
-        R.drawable.lemon_drink, R.drawable.lemon_restart)
-    val nameList = arrayListOf(R.string.name1,R.string.name2,R.string.name3,R.string.name4)
-    val titleList = arrayListOf(R.string.content_Lemontree,R.string.content_Lemon,
-        R.string.content_Glassoflemonade, R.string.content_Emptyglass)
-    val yearlist = arrayListOf("(2019)", "(2020)", "(2021)", "(2022)")
-
     var imageResource by remember { mutableStateOf(R.drawable.lemon_tree)}
     var nameResource by remember { mutableStateOf(R.string.name1)}
     var titleResource by remember { mutableStateOf(R.string.content_Lemontree)}
@@ -65,57 +65,71 @@ fun ArtSpaceScreen() {
             modifier = Modifier
                 .padding(10.dp)
                 .fillMaxWidth()
-                .height(400.dp),
+                .weight(7F),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            ArtImageField(imageResource)
+            ArtImageField(imageResource, nameList[count])
         }
 
         Column(
             modifier = Modifier
                 .padding(10.dp)
                 .fillMaxWidth()
+                .weight(1F)
                 .shadow(1.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
+            Spacer(Modifier.weight(1F))
             ArtTextField(titleResource, 24)
             ArtTextField(nameResource, 16, FontWeight.Bold, year = yearlist[count])
+            Spacer(Modifier.weight(1F))
         }
         Row(
             modifier = Modifier
                 .padding(10.dp)
-                .fillMaxSize(),
+                .fillMaxWidth()
+                .weight(1F),
             verticalAlignment = Alignment.Bottom
         ) {
-            Spacer(Modifier.weight(1F))
-            Button(
-                onClick = {
-                    if(count==0) count = 3
-                    else count --
-                    imageResource = imageList[count]
-                    titleResource = titleList[count]
-                    nameResource = nameList[count] },
-                modifier = Modifier
-                    .width(120.dp)
+            Column(
+                Modifier.weight(1F),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Bottom
             ) {
-                Text(text = "Previous")
+                Button(
+                    onClick = {
+                        if(count==0) count = 3
+                        else count --
+                        imageResource = imageList[count]
+                        titleResource = titleList[count]
+                        nameResource = nameList[count] },
+                    modifier = Modifier
+                        .width(120.dp),
+
+                    ) {
+                    Text(text = "Previous")
+                }
             }
-            Spacer(Modifier.weight(1F))
-            Button(
-                onClick = {
-                    if(count==3) count = 0
-                    else count++
-                    imageResource = imageList[count]
-                    titleResource = titleList[count]
-                    nameResource = nameList[count] },
-                modifier = Modifier
-                    .width(120.dp)
+            Column(
+                Modifier.weight(1F),
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.Bottom
             ) {
-                Text(text = "Next")
+                Button(
+                    onClick = {
+                        if(count==3) count = 0
+                        else count++
+                        imageResource = imageList[count]
+                        titleResource = titleList[count]
+                        nameResource = nameList[count] },
+                    modifier = Modifier
+                        .width(120.dp)
+                ) {
+                    Text(text = "Next")
+                }
             }
-            Spacer(Modifier.weight(1F))
         }
     }
 }
@@ -127,7 +141,7 @@ fun ArtTextField(
     fontWeight  : FontWeight = FontWeight.Normal,
     year : String = ""
 ){
-    Row(){
+    Row {
         Text(
             text = stringResource(id = txt),
             fontSize = size.sp,
@@ -145,7 +159,8 @@ fun ArtTextField(
 
 @Composable
 fun ArtImageField(
-    @DrawableRes imageResource: Int
+    @DrawableRes imageResource: Int,
+    @StringRes content : Int
 ){
     Box(
         modifier = Modifier
@@ -159,14 +174,13 @@ fun ArtImageField(
     ){
         Image(
             painter = painterResource(id = imageResource),
-            contentDescription = null,
+            contentDescription = stringResource(id=content),
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .padding(20.dp)
         )
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
