@@ -92,7 +92,7 @@ fun WoofApp() {
 fun DogItem(dog: Dog, modifier: Modifier = Modifier) {
     var expanded by remember { mutableStateOf(false)}
     val color by animateColorAsState(
-        targetValue = if (expanded) Green50 else MaterialTheme.colors.surface,
+        targetValue = if (expanded) Green50 else MaterialTheme.colors.surface, // 하드 코딩 위험
     )
 
     Card(
