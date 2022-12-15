@@ -15,7 +15,18 @@
  */
 package com.example.dessertclicker.model
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+
 /**
  * [Dessert] is the data class to represent the Dessert imageId, price, and startProductionAmount
  */
-data class Dessert(val imageId: Int, val price: Int, val startProductionAmount: Int)
+data class Dessert(val imageId: Int, val price: Int, val startProductionAmount: Int) {
+    var revenue : Int = 0,
+    var dessertsSold,
+    val currentDessertIndex,
+    var currentDessertPrice,
+    var currentDessertImageId,
+}
