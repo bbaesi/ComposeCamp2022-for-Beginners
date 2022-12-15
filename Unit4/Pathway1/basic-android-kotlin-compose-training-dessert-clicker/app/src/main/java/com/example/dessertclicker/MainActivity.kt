@@ -167,6 +167,7 @@ private fun DessertClickerApp(
 ) {
     // 구성 변경: 기기 상태 변경으로 인한 활동 소멸 후 다시 빌드되는 것.
     // rememberSaveable : 리컴포지션 및 구성 변경 중에도 값을 저장함.
+    // 단,앱이 성장하면 데이터와 로직을 컴포저블과 분리해야하므로 자주 사용 x
     var revenue by rememberSaveable { mutableStateOf(0) }
     var dessertsSold by rememberSaveable { mutableStateOf(0) }
 
